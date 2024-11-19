@@ -17,7 +17,7 @@
     mounted(){
       setTimeout(() => {
         if(this.currentStage == 'splash') this.setStage('home')
-      }, 5000)
+      }, 3000)
     }
   }
 </script>
@@ -32,7 +32,7 @@ import Settings from './components/Settings.vue'
     <div class="splash-block-container">
       <div class="splash-heading">FOOTBALL SIMULATION</div>
       <div class="splash-blurb">Company Unknown</div>
-      <div class="splash-version">Version 0.0.2</div>
+      <div class="splash-version">Version 0.0.3</div>
     </div>
   </div>
   <div class="home-block" v-else-if="currentStage == 'home'">

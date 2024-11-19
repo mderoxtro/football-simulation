@@ -50,7 +50,7 @@
 }
 
 .settings-sidebar-button.selected {
-    background-color: var(--third-color);
+    background-color: var(--fifth-color);
 }
 
 .settings-sidebar-button:hover {
@@ -59,8 +59,90 @@
 
 .settings-league {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
+}
+
+.settings-league-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 45%);
+    gap: 20px;
+    width: 100%;
+}
+
+.settings-league-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid var(--fourth-color);
+    padding: 10px;
+}
+
+.settings-league-item-line {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-league-item-label {
+    font-size: 16px;
+    margin-right: 10px;
+    font-weight: bolder;
+}
+
+.settings-league-item-select {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 0;
+    background-color: var(--main-color);
+    color: var(--text-on-main-color);
+}
+
+.settings-league-item-input {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 0;
+    background-color: var(--main-color);
+    color: var(--text-on-main-color);
+}
+
+.settings-league-item-description {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--third-color);
+}
+
+.settings-league-notification {
+    margin-top: 20px;
+    font-weight: bolder;
+    color: var(--fourth-color);
+}
+
+.settings-league-save {
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    gap: 20px;
+}
+
+.settings-league-save-button {
+    background-color: var(--main-color);
+    color: var(--text-on-main-color);
+    border-radius: 8px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    min-width: 80px;
+    transition: 0.3s;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.settings-league-save-button:hover {
+    opacity: 0.7;
 }
 
 .settings-theme {

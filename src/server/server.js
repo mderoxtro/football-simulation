@@ -17,7 +17,6 @@ let createServer = async () => {
     })
 
     app.post('/api/settings', async (req, res) => {
-        console.log(req)
         let settings = await db.setSettings(req.body)
         res.send(settings)
     })

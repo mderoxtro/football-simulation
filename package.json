@@ -1,6 +1,6 @@
 {
   "name": "football-simulation",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An American Football simulation.",
   "main": "./out/main/index.js",
   "author": "Matthew DeRoxtro",
