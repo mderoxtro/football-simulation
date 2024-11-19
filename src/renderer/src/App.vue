@@ -1,24 +1,44 @@
-<script setup>
-import Versions from './components/Versions.vue'
+<script>
+  export default {
+    data(){
+      return {
+        currentStage: 'splash'
+      }
+    },
+    methods: {
+      ipcHandle(){
+        window.electron.ipcRenderer.send('ping')
+      },
 
-const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+      setStage(dest){
+        this.currentStage = dest
+      }
+    },
+    mounted(){
+      setTimeout(() => {
+        if(this.currentStage == 'splash') this.setStage('home')
+      }, 5000)
+    }
+  }
+</script>
+
+<script setup>
+import Home from './components/Home.vue'
+import Settings from './components/Settings.vue'
 </script>
 
 <template>
-  <img alt="logo" class="logo" src="./assets/electron.svg" />
-  <div class="creator">Powered by electron-vite</div>
-  <div class="text">
-    Build an Electron app with
-    <span class="vue">Vue</span>
-  </div>
-  <p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
-  <div class="actions">
-    <div class="action">
-      <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
-    </div>
-    <div class="action">
-      <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>
+  <div class="splash-block" v-if="currentStage == 'splash'" @click="setStage('home')">
+    <div class="splash-block-container">
+      <div class="splash-heading">FOOTBALL SIMULATION</div>
+      <div class="splash-blurb">Company Unknown</div>
+      <div class="splash-version">Version 0.0.2</div>
     </div>
   </div>
-  <Versions />
+  <div class="home-block" v-else-if="currentStage == 'home'">
+    <Home @screen-change="setStage"/>
+  </div>
+  <div class="settings-block" v-else-if="currentStage == 'settings'">
+    <Settings @screen-change="setStage"/>
+  </div>
 </template>

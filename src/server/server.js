@@ -1,12 +1,24 @@
 import express from 'express'
+import cors from 'cors'
 import * as db from '../database/database.js'
 
 let app = express()
+app.use(express.json())
+app.use(
+    cors({
+        origin: "*"
+    })
+)
 
 let createServer = async () => {
     app.get('/api/settings', async (req, res) => {
-        console.log("Settings")
         let settings = await db.getSettings()
+        res.send(settings)
+    })
+
+    app.post('/api/settings', async (req, res) => {
+        console.log(req)
+        let settings = await db.setSettings(req.body)
         res.send(settings)
     })
     

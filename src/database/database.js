@@ -3,6 +3,7 @@ import { open } from 'sqlite'
 import fs from 'fs'
 
 (async () => {
+    sqlite.verbose()
     let generalDatabase = await open({
         filename: "sfl-general.sfldb",
         driver: sqlite.Database
@@ -22,22 +23,25 @@ import fs from 'fs'
         {conferenceTwoAcronym: "NSC"},
         {conferenceTwoName: "Nominal Simulation Conference"},
         {divisionNames: ["First","Second","Third","Fourth"]},
-        {mainColor: "#000000"},
-        {textOnMainColor: "#FFFFFF"},
-        {backgroundColor: "#FFFFFF"},
+        {mainColor: "#01161E"},
+        {textOnMainColor: "#EFF6E0"},
+        {thirdColor: "#124559"},
+        {fourthColor: "#598392"},
+        {fifthColor:"#AEC3B0"},
         {fullScreen: true}
     ]
 
-    let init = await generalDatabase.prepare("INSERT INTO general (setting, value) VALUES (?,?)")
-    for(let setting of initialSettings){
-        await init.bind(String(Object.keys(setting)), String(setting[Object.keys(setting)]))
-        let result = await init.run()
-    }
-
-    generalDatabase.each("SELECT setting, value FROM general", (err, setting) => {
-        console.log(setting)
+    let databaseRows = []
+    await generalDatabase.each("SELECT setting, value FROM general", (err, setting) => {
+        databaseRows.push(setting)
     })
-
+    if(!databaseRows.length){
+        let init = await generalDatabase.prepare("INSERT INTO general (setting, value) VALUES (?,?)")
+        for(let setting of initialSettings){
+            await init.bind(String(Object.keys(setting)), String(setting[Object.keys(setting)]))
+            let result = await init.run()
+        }
+    }
 })()
 
 let getSettings = async () => {
@@ -70,6 +74,21 @@ let getSettings = async () => {
     return returnSettings
 }
 
+let setSettings = async (settings) => {
+    let generalDatabase = await open({
+        filename: "sfl-general.sfldb",
+        driver: sqlite.Database
+    })
+    // generalDatabase.on('trace', (data) => {
+    //     console.log(data)
+    // })
+    for(let setting in settings){
+        let thisRowId = await generalDatabase.get(`SELECT rowid FROM general WHERE setting = '${setting}'`)
+        let result = await generalDatabase.run(`UPDATE general SET setting = '${setting}', value = '${settings[setting]}' WHERE rowid = ${thisRowId.rowid}`)
+    }
+}
+
 export {
-    getSettings
+    getSettings,
+    setSettings
 }
