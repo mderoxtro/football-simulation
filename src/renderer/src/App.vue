@@ -6,10 +6,6 @@
       }
     },
     methods: {
-      ipcHandle(){
-        window.electron.ipcRenderer.send('ping')
-      },
-
       setStage(dest){
         this.currentStage = dest
       }
@@ -25,6 +21,7 @@
 <script setup>
 import Home from './components/Home.vue'
 import Settings from './components/Settings.vue'
+import NewGame from './components/NewGame.vue'
 </script>
 
 <template>
@@ -32,7 +29,7 @@ import Settings from './components/Settings.vue'
     <div class="splash-block-container">
       <div class="splash-heading">FOOTBALL SIMULATION</div>
       <div class="splash-blurb">Company Unknown</div>
-      <div class="splash-version">Version 0.0.3</div>
+      <div class="splash-version">Version 0.0.4</div>
     </div>
   </div>
   <div class="home-block" v-else-if="currentStage == 'home'">
@@ -40,5 +37,8 @@ import Settings from './components/Settings.vue'
   </div>
   <div class="settings-block" v-else-if="currentStage == 'settings'">
     <Settings @screen-change="setStage"/>
+  </div>
+  <div class="new-game-block" v-else-if="currentStage == 'newgame'">
+    <NewGame @screen-change="setStage"/>
   </div>
 </template>

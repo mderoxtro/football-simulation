@@ -31,9 +31,10 @@
 
 <template>
     <div class="home-container">
-      <div class="home-header">FOOTBALL SIMULATION</div>
+      <div class="home-header">FOOTBALL</div>
+      <div class="home-header">SIMULATION</div>
       <div class="home-buttons">
-        <div class="home-button">NEW GAME</div>
+        <div class="home-button" @click="emitScreenChange('newgame')">NEW GAME</div>
         <div class="home-button" :class="{disabled: !existingGames.length}">LOAD GAME</div>
         <div class="home-button" @click="emitScreenChange('settings')">SETTINGS</div>
       </div>
